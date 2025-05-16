@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinhala Text Refiner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sinhala Text Refiner</h1>
+        <p>Paste your Sinhala story or article below to find the sentences with the least impact.</p>
+
+        <textarea id="inputText" placeholder="මෙතනින් ඔබේ සිංහල පෙළ අලවන්න..."></textarea>
+        <button id="refineButton">Refine Text</button>
+
+        <div class="output-container">
+            <h2>Top 10 Least Impactful Sentences:</h2>
+            <ul id="outputSentences">
+                </ul>
+            <p id="noSentencesMessage" style="display:none;">No sentences found or processed.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
