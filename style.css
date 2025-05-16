@@ -93,6 +93,22 @@ button:hover {
     color: #7f8c8d;
 }
 
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+button.secondary {
+    background-color: #ecf0f1;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+button.secondary:hover {
+    background-color: #d0d3d4;
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
     .container {
