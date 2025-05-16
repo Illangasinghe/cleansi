@@ -12,12 +12,14 @@
         <p>Paste your Sinhala story or article below to find the sentences with the least impact.</p>
 
         <textarea id="inputText" placeholder="මෙතනින් ඔබේ සිංහල පෙළ අලවන්න..."></textarea>
-        <button id="refineButton">Refine Text</button>
+        <div class="button-group">
+            <button id="refineButton">Refine Text</button>
+            <button id="clearButton" class="secondary">Clear</button>
+        </div>
 
         <div class="output-container">
             <h2>Top 10 Least Impactful Sentences:</h2>
-            <ul id="outputSentences">
-                </ul>
+            <ul id="outputSentences"></ul>
             <p id="noSentencesMessage" style="display:none;">No sentences found or processed.</p>
         </div>
     </div>
