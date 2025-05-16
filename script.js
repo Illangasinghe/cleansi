@@ -5,6 +5,7 @@ const outputList  = document.getElementById('outputSentences');
 const noMsg       = document.getElementById('noSentencesMessage');
 
 refineBtn.addEventListener('click', () => {
+    // clear previous output
     outputList.innerHTML = '';
     noMsg.style.display = 'none';
 
@@ -15,17 +16,16 @@ refineBtn.addEventListener('click', () => {
         return;
     }
 
-    // 1. Cleanse the text – now keeps . and , intact
+    // 1. CLEAN: keep only Sinhala letters (U+0D80–U+0DFF), spaces, . , and ።
     const cleanedText = raw
-        // remove English letters, digits, quotes, exclamation, other symbols—but keep . and ,
-        .replace(/["'“‘”’!`~@#$%^&*()_+\-=\[\]{};:\\|<>\/?a-zA-Z0-9]+/g, '')
+        .replace(/[^\u0D80-\u0DFF\s\.,።]/g, '')
         .replace(/\s+/g, ' ')
         .trim();
 
-    // 2. Extract sentences including their trailing . or Kundaliya (።)
-    //    Regex: “one or more chars that aren’t . or ።, then optionally a . or ።”
-    const matches = cleanedText.match(/[^።\.]+[።\.]?/g) || [];
-    const sentences = matches
+    // 2. EXTRACT sentences, preserving their trailing . or ።
+    //    Matches one or more non-(. or ።), then optionally a . or ።
+    const rawSentences = cleanedText.match(/[^።\.]+[።\.]?/g) || [];
+    const sentences = rawSentences
         .map(s => s.trim())
         .filter(s => s.length > 0);
 
@@ -35,17 +35,17 @@ refineBtn.addEventListener('click', () => {
         return;
     }
 
-    // 3. Score by word-count (naive split on spaces)
+    // 3. SCORE by word-count (naïve split on spaces)
     const scored = sentences.map(text => ({
         text,
         impact: text.split(/\s+/).filter(w => w).length
     }));
 
-    // 4. Sort & pick top 10 least impactful
+    // 4. SORT ascending (least words → least “impact”)
     scored.sort((a, b) => a.impact - b.impact);
     const top10 = scored.slice(0, 10);
 
-    // 5. Render (with punctuation preserved)
+    // 5. RENDER, with punctuation intact
     top10.forEach(({ text, impact }) => {
         const li = document.createElement('li');
         li.textContent = `${text} (Words: ${impact})`;
